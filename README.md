@@ -1,58 +1,18 @@
 # Forecasting
 
-Forecasting portfolio with hierarchical, spatial, and time series models applied to housing, energy, retail, utilities, renewable energy, and biomedical forecasting problems.
-
-This repository brings together my applied forecasting portfolio, including reproducible notebooks, exploratory analysis, benchmark models, hierarchical reconciliation workflows, and selected authored/co-authored research work related to time series forecasting.
-
-## Selected Publications and Research Work
-
-The following publications and preprints are authored or co-authored by Alberto Gudiño-Ochoa and are connected to the methodological scope of this repository: forecasting, hierarchical reconciliation, renewable energy analytics, and biomedical time series prediction.
-
-### Temporal hierarchical forecast reconciliation of photovoltaic power generation from heterogeneous base models
-
-[Paper link](https://doi.org/10.1016/j.meaene.2026.100094)
-
-Published in *Measurement: Energy*. This work studies temporal hierarchical reconciliation for Belgian photovoltaic generation across weekly, daily, and hourly resolutions. It compares heterogeneous forecasting paradigms, including statistical models, machine learning, deep learning, and foundation models.
-
-Main finding: the benefits of temporal reconciliation are highly dependent on the model family and temporal frequency. LightGBM was the strongest baseline, and cross-covariance reconciliation achieved the best overall performance, with average error reductions of approximately 15% across frequencies, reaching about 40% at the weekly level and 13% at the hourly level.
-
-### Short-Term Hierarchical Photovoltaic Forecasting with Cross-Sectional Reconciliation in Belgium
-
-[Preprint link](https://doi.org/10.2139/ssrn.5737222)
-
-This work evaluates short-term photovoltaic forecasting across a three-level spatial hierarchy in Belgium: national, regional, and provincial. It compares statistical, machine learning, deep learning, and foundation models under a 24-hour forecasting horizon using meteorological, calendar, and periodic features.
-
-Main finding: LightGBM with Bottom-Up reconciliation achieved the lowest NRMSE, followed by TBATS and TimeGPT with covariance-based reconciliation. Hybrid deep learning models such as NHITS and NBEATSx showed the largest relative error reductions, ranging from 17% to 42%.
-
-### Heuristic Cross-Temporal Reconciliation Applied to Heterogeneous Models in Photovoltaic Forecasting
-
-[Preprint link](https://doi.org/10.2139/ssrn.5527782)
-
-This work evaluates cross-temporal reconciliation for photovoltaic forecasting by combining cross-sectional and temporal hierarchies. It compares direct, univariate, and iterative reconciliation strategies across heterogeneous models, including TBATS, LGBMRegressor, KAN, NBEATSx, NHITS, and TimeGPT.
-
-Main finding: deep learning models benefited the most from cross-temporal reconciliation. KAN with iterative reconciliation achieved the lowest global error, reducing NRMSE by up to 17% at weekly, 7% at daily, and 5% at hourly levels. NBEATSx and NHITS also benefited systematically from variance-weighted reconciliation schemes.
-
-### Sequential prediction of pediatric glucose dynamics using LSTM Networks Trained on Synthetic Physiological Data
-
-[Paper link](https://doi.org/10.35429/JIT.2025.12.32.2.1.11)
-
-This work evaluates LSTM networks for sequential glucose prediction in pediatric patients with Type 1 Diabetes Mellitus using synthetic physiological data generated with the UVA/PADOVA simulator.
-
-Main finding: the LSTM model effectively captured simulated pediatric glycemic dynamics, achieving R² = 0.93, MAE = 4.52 mg/dL, and RMSE = 5.66 mg/dL, supporting its potential for predictive applications in diabetes management.
-
----
+Portfolio of forecasting projects focused on hierarchical, spatial, and time series modeling.
 
 ## Zillow Home Sales Forecasting
 
-End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The project covers data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and error analysis.
+End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The workflow includes data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and error analysis.
 
 ## Project Overview
 
 The dataset was built bottom-up from Zillow metropolitan sales-count series. Metropolitan areas define the base level. Missing monthly values were filled with zero after aligning all series to a common monthly calendar.
 
-State-level series were obtained by summing metropolitan areas within each state group, and the national series was obtained by summing the state-level aggregates. Therefore, the cleaned national series represents the sum of the included metropolitan areas, not Zillow’s original national aggregate. This design ensures exact cross-sectional coherence for hierarchical forecasting and reconciliation.
+State-level series were obtained by summing metropolitan areas within each state group, and the national series was obtained by summing the state-level aggregates. The cleaned national series therefore represents the sum of the included metropolitan areas, not Zillow’s original national aggregate. This guarantees exact cross-sectional coherence for hierarchical forecasting and reconciliation.
 
-The final dataset follows a coherent three-level hierarchy:
+The final dataset follows a three-level hierarchy:
 
 ```text
 Country → State → Region
@@ -78,11 +38,11 @@ The largest region accounts for about 4.6% of total regional sales, the top 10 r
 
 ## Spatial Analysis
 
-The spatial analysis uses latitude and longitude to explore total sales and average monthly sales by region. Geohash and H3 spatial indexing were used to summarize geographic market concentration.
+Latitude and longitude were used to explore total sales and average monthly sales by region. Geohash and H3 spatial indexing were applied to summarize geographic market concentration.
 
-The results show clear spatial concentration patterns, especially around New York and the state of Florida.
+The results show clear spatial concentration patterns, especially around New York and Florida.
 
-Interactive H3 maps are available here:
+Interactive H3 maps:
 
 - [Combined H3 spatial map](https://albertogudinoochoa.github.io/Forecasting/Zillow%20Sales%20House/Spatial%20Analysis/Outputs/zillow_h3_combined_map.html)
 - [H3 market density map](https://albertogudinoochoa.github.io/Forecasting/Zillow%20Sales%20House/Spatial%20Analysis/Outputs/zillow_h3_market_density.html)
@@ -90,21 +50,23 @@ Interactive H3 maps are available here:
 
 ## Forecasting Design
 
-Forecasting was evaluated using walk-forward cross-validation with:
+Forecasting was evaluated with walk-forward cross-validation:
 
 - Forecast horizon: 12 months
 - Number of cutoffs: 5
 - Step size: 12 months
 
-For each model and cutoff, in-sample forecasts were generated to compute residuals for reconciliation, while out-of-sample forecasts were used for final evaluation and reconciled forecasts.
+For each model and cutoff, in-sample forecasts were generated to compute residuals for reconciliation. Out-of-sample forecasts were used for final evaluation.
 
 ## Benchmark Models
 
 ### Statistical Benchmarks
 
-Implemented in `statistical_benchmarks_crossvalidation`. The statistical models were estimated using `StatsForecast`:
+Implemented in `statistical_benchmarks_crossvalidation`.
 
-- SeasonalNaive as the reference benchmark
+Models:
+
+- SeasonalNaive
 - Holt-Winters
 - TBATS
 - AutoARIMA
@@ -112,43 +74,42 @@ Implemented in `statistical_benchmarks_crossvalidation`. The statistical models 
 
 ### Machine Learning Benchmarks
 
-Implemented in `ML_benchmarks_crossvalidation`. Global models were trained using:
+Implemented in `ML_benchmarks_crossvalidation`.
+
+Global models:
 
 - LightGBM
 - CatBoost
 - XGBoost
 
-Autocorrelation diagnostics and partial autocorrelation plots were inspected to define relevant lag structure, with special attention to 12-month seasonal lags. The models used lag features, lag transformations, and basic calendar features such as month, quarter, and year.
+Partial autocorrelation diagnostics were used to inspect lag structure, with special attention to 12-month seasonal lags. The models used lag features, lag transformations, and calendar features such as month, quarter, and year.
 
 ### Deep Learning Benchmarks
 
-Implemented in `DL_benchmarks_crossvalidation`. The deep learning benchmark included:
+Implemented in `DL_benchmarks_crossvalidation`.
+
+Models:
 
 - GRU
 - NHITS
 - NBEATSx
 - KAN
 
-The models incorporated historical calendar variables and were configured with 200 training epochs, a learning rate of 0.0001, and MAE loss. Additional model-specific details are included in the notebook.
+The models used historical calendar variables and were configured with 200 training epochs, a learning rate of 0.0001, and MAE loss.
 
 ## Hierarchical Reconciliation
 
 Implemented in `hierarchical_reconciliation`.
 
-Cross-sectional reconciliation was applied in R using the `FoReco` package over the same three-level hierarchy defined above.
+Cross-sectional reconciliation was applied in R using the `FoReco` package over the same three-level hierarchy. In-sample residuals were used to estimate reconciliation weights, and out-of-sample forecasts were reconciled.
 
-For each model and cutoff:
-
-- In-sample forecasts were used to compute residuals.
-- Out-of-sample forecasts were reconciled.
-
-The reconciliation methods included bottom-up, top-down, middle-out, least-squares, weighted least-squares, shrinkage covariance-based reconciliation, and level-conditional coherent reconciliation.
+Methods included bottom-up, top-down, middle-out, least-squares, weighted least-squares, shrinkage covariance-based reconciliation, and level-conditional coherent reconciliation.
 
 ## Error Analysis
 
 Implemented in `error_analysis`.
 
-NRMSE was selected as the main metric because it allows comparison across hierarchy levels with different sales magnitudes. The analysis includes global model ranking, reconciliation improvements, comparison against SeasonalNaive, bias factor, and error distributions.
+NRMSE was selected as the main metric because it allows comparison across hierarchy levels with different sales magnitudes. The analysis includes global ranking, reconciliation improvements, comparison against SeasonalNaive, bias factor, and error distributions.
 
 ![Global error comparison](Zillow%20Sales%20House/Figures/global_error.png)
 
@@ -158,7 +119,7 @@ NRMSE was selected as the main metric because it allows comparison across hierar
 
 Lower NRMSE is better.
 
-| Model | Reconciliation method | NRMSE |
+| Model | Reconciliation Method | NRMSE |
 |---|---:|---:|
 | HoltWinters | LCC-SHR | 0.1439 |
 | AutoARIMAX | BU | 0.1451 |
@@ -178,9 +139,20 @@ Lower NRMSE is better.
 
 ## Main Findings
 
-The best global performance was obtained by Holt-Winters with LCC-SHR reconciliation, followed closely by AutoARIMAX with bottom-up reconciliation and TBATS with LCC-SHR. Several reconciled models improved over the SeasonalNaive benchmark, confirming the value of hierarchical reconciliation for this dataset.
+Holt-Winters with LCC-SHR achieved the best global NRMSE, followed closely by AutoARIMAX with Bottom-Up reconciliation and TBATS with LCC-SHR. Several reconciled models improved over the SeasonalNaive benchmark, showing the value of hierarchical reconciliation for this dataset.
 
-However, reconciliation did not improve all models equally. Some methods were more effective for statistical models, while several machine learning and deep learning models showed model-dependent gains. This highlights the importance of evaluating both the base model and the reconciliation method jointly.
+The gains were model-dependent. Statistical models benefited more consistently, while machine learning and deep learning models required careful pairing between the base model and the reconciliation method.
+
+## My Publications and Research Work
+
+I am an author or co-author of the following forecasting and time-series research works.
+
+| Work | Link | Scope | Main Finding |
+|---|---|---|---|
+| Temporal hierarchical forecast reconciliation of photovoltaic power generation from heterogeneous base models | [Paper](https://doi.org/10.1016/j.meaene.2026.100094) | Temporal reconciliation for Belgian photovoltaic generation across weekly, daily, and hourly resolutions. | LightGBM was the strongest baseline; cross-covariance reconciliation achieved the best overall performance, with average error reductions of approximately 15% across frequencies. |
+| Short-Term Hierarchical Photovoltaic Forecasting with Cross-Sectional Reconciliation in Belgium | [Preprint](https://doi.org/10.2139/ssrn.5737222) | Short-term photovoltaic forecasting across national, regional, and provincial levels in Belgium. | LightGBM with Bottom-Up reconciliation achieved the lowest NRMSE; NHITS and NBEATSx showed the largest relative error reductions. |
+| Heuristic Cross-Temporal Reconciliation Applied to Heterogeneous Models in Photovoltaic Forecasting | [Preprint](https://doi.org/10.2139/ssrn.5527782) | Cross-temporal reconciliation combining spatial and temporal hierarchies for photovoltaic forecasting. | Deep learning models benefited the most; KAN with iterative reconciliation achieved the lowest global error. |
+| Sequential prediction of pediatric glucose dynamics using LSTM Networks Trained on Synthetic Physiological Data | [Paper](https://doi.org/10.35429/JIT.2025.12.32.2.1.11) | LSTM-based glucose prediction for pediatric Type 1 Diabetes using synthetic physiological data. | The model captured simulated glycemic dynamics with R² = 0.93, MAE = 4.52 mg/dL, and RMSE = 5.66 mg/dL. |
 
 ## Repository Structure
 
