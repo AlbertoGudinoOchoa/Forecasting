@@ -8,7 +8,7 @@ End-to-end hierarchical forecasting project built from Zillow metropolitan sales
 
 ## Project Overview
 
-The dataset was built bottom-up from Zillow metropolitan sales-count series. Metropolitan areas define the base level. Missing monthly values were filled with zero after aligning all series to a common monthly calendar.
+The dataset was built bottom-up from publicly available Zillow metropolitan sales-count series. Metropolitan areas define the base level. Missing monthly values were filled with zero after aligning all series to a common monthly calendar.
 
 State-level series were obtained by summing metropolitan areas within each state group, and the national series was obtained by summing the state-level aggregates. The cleaned national series therefore represents the sum of the included metropolitan areas, not Zillow’s original national aggregate. This guarantees exact cross-sectional coherence for hierarchical forecasting and reconciliation.
 
