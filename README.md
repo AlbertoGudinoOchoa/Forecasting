@@ -4,7 +4,7 @@ Portfolio of forecasting projects focused on hierarchical, spatial, and time ser
 
 ## Zillow Home Sales Forecasting
 
-End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The workflow includes data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and error analysis.
+End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The project covers data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and error analysis.
 
 ## Project Overview
 
@@ -62,7 +62,7 @@ For each model and cutoff, in-sample forecasts were generated to compute residua
 
 ### Statistical Benchmarks
 
-Implemented in `statistical_benchmarks_crossvalidation`.
+Implemented in statistical_benchmarks_crossvalidation. The statistical models were estimated using StatsForecast:
 
 Models:
 
@@ -95,7 +95,7 @@ Models:
 - NBEATSx
 - KAN
 
-The models used historical calendar variables and were configured with 200 training epochs, a learning rate of 0.0001, and MAE loss.
+The models incorporated historical calendar variables and were configured with 200 training epochs, a learning rate of 0.0001, and MAE loss. Additional model-specific details are included in the notebook.
 
 ## Hierarchical Reconciliation
 
@@ -103,7 +103,7 @@ Implemented in `hierarchical_reconciliation`.
 
 Cross-sectional reconciliation was applied in R using the `FoReco` package over the same three-level hierarchy. In-sample residuals were used to estimate reconciliation weights, and out-of-sample forecasts were reconciled.
 
-Methods included bottom-up, top-down, middle-out, least-squares, weighted least-squares, shrinkage covariance-based reconciliation, and level-conditional coherent reconciliation.
+The reconciliation methods included bottom-up, top-down, middle-out, least-squares, weighted least-squares, shrinkage covariance-based reconciliation, and level-conditional coherent reconciliation.
 
 ## Error Analysis
 
@@ -141,7 +141,7 @@ Lower NRMSE is better.
 
 Holt-Winters with LCC-SHR achieved the best global NRMSE, followed closely by AutoARIMAX with Bottom-Up reconciliation and TBATS with LCC-SHR. Several reconciled models improved over the SeasonalNaive benchmark, showing the value of hierarchical reconciliation for this dataset.
 
-The gains were model-dependent. Statistical models benefited more consistently, while machine learning and deep learning models required careful pairing between the base model and the reconciliation method.
+However, reconciliation did not improve all models equally. Some methods were more effective for statistical models, while several machine learning and deep learning models showed model-dependent gains. This highlights the importance of evaluating both the base model and the reconciliation method jointly.
 
 ## My Publications and Research Work
 
