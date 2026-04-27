@@ -1,5 +1,45 @@
 # Forecasting
 
+Forecasting portfolio with hierarchical, spatial, and time series models applied to housing, energy, retail, utilities, renewable energy, and biomedical forecasting problems.
+
+## Related Publications
+
+This repository is connected to a broader research line on time series forecasting, hierarchical reconciliation, renewable energy forecasting, and biomedical sequence prediction.
+
+### Temporal hierarchical forecast reconciliation of photovoltaic power generation from heterogeneous base models
+
+[Paper link](https://doi.org/10.1016/j.meaene.2026.100094)
+
+Published in *Measurement: Energy*. This study evaluates temporal hierarchical reconciliation for Belgian photovoltaic generation across weekly, daily, and hourly resolutions. It compares statistical, machine learning, deep learning, and foundation models, including TBATS, LightGBM, KAN, NHITS, NBEATSx, and TimeGPT.
+
+Main finding: reconciliation benefits are highly model- and frequency-dependent. LightGBM was the strongest baseline, and cross-covariance reconciliation achieved the best overall performance, with average error reductions of approximately 15% across frequencies, reaching about 40% at the weekly level and 13% at the hourly level.
+
+### Short-Term Hierarchical Photovoltaic Forecasting with Cross-Sectional Reconciliation in Belgium
+
+[Preprint link](https://doi.org/10.2139/ssrn.5737222)
+
+This preprint studies short-term photovoltaic forecasting across a three-level spatial hierarchy in Belgium: national, regional, and provincial. It evaluates statistical, machine learning, deep learning, and foundation models under a 24-hour forecasting horizon using meteorological, calendar, and periodic features.
+
+Main finding: LightGBM with Bottom-Up reconciliation achieved the lowest NRMSE, followed by TBATS and TimeGPT with covariance-based reconciliation. Hybrid deep learning models such as NHITS and NBEATSx showed the largest relative error reductions, ranging from 17% to 42%.
+
+### Heuristic Cross-Temporal Reconciliation Applied to Heterogeneous Models in Photovoltaic Forecasting
+
+[Preprint link](https://doi.org/10.2139/ssrn.5527782)
+
+This preprint evaluates cross-temporal reconciliation for photovoltaic forecasting by combining cross-sectional and temporal hierarchies. It compares direct, univariate, and iterative reconciliation strategies across heterogeneous models, including TBATS, LGBMRegressor, KAN, NBEATSx, NHITS, and TimeGPT.
+
+Main finding: deep learning models benefited the most from cross-temporal reconciliation. KAN with iterative reconciliation achieved the lowest global error, reducing NRMSE by up to 17% at weekly, 7% at daily, and 5% at hourly levels. NBEATSx and NHITS also benefited systematically from variance-weighted reconciliation schemes.
+
+### Sequential prediction of pediatric glucose dynamics using LSTM Networks Trained on Synthetic Physiological Data
+
+[Paper link](https://doi.org/10.35429/JIT.2025.12.32.2.1.11)
+
+This study evaluates LSTM networks for sequential glucose prediction in pediatric patients with Type 1 Diabetes Mellitus using synthetic physiological data generated with the UVA/PADOVA simulator.
+
+Main finding: the LSTM model effectively captured simulated pediatric glycemic dynamics, achieving R² = 0.93, MAE = 4.52 mg/dL, and RMSE = 5.66 mg/dL, supporting its potential for predictive applications in diabetes management.
+
+---
+
 ## Zillow Sales House Forecasting
 
 End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The project covers data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and error analysis.
@@ -110,7 +150,7 @@ NRMSE was selected as the main metric because it allows comparison across hierar
 
 ![Global error comparison](Zillow%20Sales%20House/Figures/global_error.png)
 
-![Reconciliation improvement](Zillow%20Sales%20House/Figures/Improvement reconciliation.png)
+![Reconciliation improvement](Zillow%20Sales%20House/Figures/Improvement%20reconciliation.png)
 
 ## Best Global Results
 
@@ -157,11 +197,11 @@ Forecasting/
 │   ├── Hierarchical Reconciliation/
 │   ├── Error Analysis/
 │   └── Figures/
-│       ├── eda_national_sales.png
-│       ├── hierarchy_series.png
+│       ├── EDA_zillow.png
+│       ├── hierarchhy.png
 │       ├── global_error.png
-│       ├── reconciliation_improvement.png
-│       └── best_reconciled_models.png
+│       ├── Improvement reconciliation.png
+│       └── best_models_reconcilied.png
 ├── README.md
 └── LICENSE
 ```
