@@ -110,7 +110,7 @@ NRMSE was selected as the main metric because it allows comparison across hierar
 
 ![Global error comparison](Zillow%20Sales%20House/Figures/global_error.png)
 
-![Reconciliation improvement](Zillow%20Sales%20House/Figures/reconciliation_improvement.png)
+![Reconciliation improvement](Zillow%20Sales%20House/Figures/Improvement reconciliation.png)
 
 ## Best Global Results
 
