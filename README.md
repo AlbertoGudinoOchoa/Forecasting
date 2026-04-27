@@ -2,7 +2,7 @@
 
 ## Zillow Sales House Forecasting
 
-End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The project covers data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and post-hoc error analysis.
+End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The project covers data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and error analysis.
 
 ## Project Overview
 
