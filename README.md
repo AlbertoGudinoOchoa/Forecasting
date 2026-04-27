@@ -1,7 +1,5 @@
 # Forecasting
 
-Forecasting portfolio with hierarchical, spatial, and time series models applied to housing, energy, retail, and utilities data.
-
 ## Zillow Sales House Forecasting
 
 End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The project covers data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and post-hoc error analysis.
