@@ -32,7 +32,7 @@ At the state level, Florida, California, Texas, New York, and Pennsylvania show 
 
 The largest region accounts for about 4.6% of total regional sales, the top 10 regions account for about 28.1%, and the top 20 account for about 42.9%.
 
-![Hierarchical sales series](Zillow%20Sales%20House/Figures/hierarchy.png)
+![Hierarchical sales series](Zillow%20Sales%20House/Figures/hierarchhy.png)
 
 ## Spatial Analysis
 
@@ -56,19 +56,11 @@ Forecasting was evaluated using walk-forward cross-validation with:
 
 For each model and cutoff, in-sample forecasts were generated to compute residuals for reconciliation, while out-of-sample forecasts were used for final evaluation and reconciled forecasts.
 
-The forecasting data used the following long-format schema:
-
-```text
-unique_id, ds, cutoff, y, forecast, model, type, hierarchy_level
-```
-
 ## Benchmark Models
 
 ### Statistical Benchmarks
 
-Implemented in `statistical_benchmarks_crossvalidation`.
-
-The statistical models were estimated using `StatsForecast`:
+Implemented in `statistical_benchmarks_crossvalidation`. The statistical models were estimated using `StatsForecast`:
 
 - SeasonalNaive as the reference benchmark
 - Holt-Winters
@@ -78,9 +70,7 @@ The statistical models were estimated using `StatsForecast`:
 
 ### Machine Learning Benchmarks
 
-Implemented in `ML_benchmarks_crossvalidation`.
-
-Global models were trained using:
+Implemented in `ML_benchmarks_crossvalidation`. Global models were trained using:
 
 - LightGBM
 - CatBoost
@@ -90,9 +80,7 @@ Autocorrelation diagnostics and partial autocorrelation plots were inspected to 
 
 ### Deep Learning Benchmarks
 
-Implemented in `DL_benchmarks_crossvalidation`.
-
-The deep learning benchmark included:
+Implemented in `DL_benchmarks_crossvalidation`. The deep learning benchmark included:
 
 - GRU
 - NHITS
