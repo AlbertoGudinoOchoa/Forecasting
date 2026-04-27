@@ -24,7 +24,7 @@ It contains:
 
 National sales volume peaked in 2021, with approximately 4.99 million sales, followed by a clear contraction in 2022 and 2023. Values for 2026 should be interpreted cautiously because the year is incomplete.
 
-![National home sales by year](Zillow%20Sales%20House/Figures/eda_national_sales.png)
+![National home sales by year](Zillow%20Sales%20House/Figures/EDA_zillow.png)
 
 ## Exploratory Data Analysis
 
@@ -32,7 +32,7 @@ At the state level, Florida, California, Texas, New York, and Pennsylvania show 
 
 The largest region accounts for about 4.6% of total regional sales, the top 10 regions account for about 28.1%, and the top 20 account for about 42.9%.
 
-![Hierarchical sales series](Zillow%20Sales%20House/Figures/hierarchy_series.png)
+![Hierarchical sales series](Zillow%20Sales%20House/Figures/hierarchy.png)
 
 ## Spatial Analysis
 
@@ -144,7 +144,7 @@ Lower NRMSE is better.
 | SeasonalNaive | Base | 0.2022 |
 | GRU | BU-SNTZ | 0.2355 |
 
-![Best reconciled models](Zillow%20Sales%20House/Figures/best_reconciled_models.png)
+![Best reconciled models](Zillow%20Sales%20House/Figures/best_models_reconcilied.png)
 
 ## Main Findings
 
