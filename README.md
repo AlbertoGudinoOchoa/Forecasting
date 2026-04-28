@@ -189,9 +189,7 @@ Spatial concentration is also relevant. A limited number of large metropolitan a
 
 ## Future Work
 
-The current ML and deep learning benchmarks rely mainly on lag, rolling, and calendar-derived features. Future versions should test whether richer exogenous and spatial information improves performance.
-
-Planned extensions include:
+The current ML and deep learning benchmarks rely mainly on lag, rolling, and calendar-derived features. Future versions should test whether richer exogenous and spatial information improves performance. Planned extensions include:
 
 - holiday and working-day features,
 - cyclical calendar transformations,
@@ -200,8 +198,6 @@ Planned extensions include:
 - graph-based embeddings using regional proximity,
 - distance-based features between markets,
 - more systematic hyperparameter tuning for ML and deep learning models.
-
-These additions would help determine whether ML and deep learning models underperformed because of the model family itself or because the current feature set is still limited.
 
 ## Skills Demonstrated
 
