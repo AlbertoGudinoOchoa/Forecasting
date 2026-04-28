@@ -1,6 +1,6 @@
 # Forecasting
 
-Portfolio repository focused on time series forecasting, hierarchical modeling, spatial analysis, and forecast reconciliation.
+Forecasting portfolio covering time series modeling, hierarchical reconciliation, spatial analysis, and selected research publications.
 
 ## Zillow Home Sales Forecasting
 
