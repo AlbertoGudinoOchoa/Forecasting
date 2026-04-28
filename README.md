@@ -1,46 +1,70 @@
 # Forecasting
 
-Portfolio of forecasting projects focused on hierarchical, spatial, and time series modeling.
+Portfolio repository focused on time series forecasting, hierarchical modeling, spatial analysis, and forecast reconciliation.
 
-## Zillow Home Sales
+## Zillow Home Sales Forecasting
 
-End-to-end hierarchical forecasting project built from Zillow metropolitan sales-count series. The project covers data preprocessing, exploratory analysis, spatial analysis, statistical benchmarks, machine learning benchmarks, deep learning models, cross-sectional reconciliation, and error analysis.
+End-to-end forecasting project using public Zillow monthly metropolitan sales-count data.
 
-## Project Overview
-
-The dataset was built bottom-up from publicly available Zillow metropolitan sales-count series. Metropolitan areas define the base level. Missing monthly values were filled with zero after aligning all series to a common monthly calendar.
-
-State-level series were obtained by summing metropolitan areas within each state group, and the national series was obtained by summing the state-level aggregates. The cleaned national series therefore represents the sum of the included metropolitan areas, not Zillow’s original national aggregate. This guarantees exact cross-sectional coherence for hierarchical forecasting and reconciliation.
-
-The final dataset follows a three-level hierarchy:
+The project builds a coherent monthly hierarchy from regional housing-market series, evaluates statistical, machine learning, and deep learning models, applies cross-sectional reconciliation, and analyzes forecast error across aggregation levels.
 
 ```text
 Country → State → Region
 ```
 
-It contains:
+The final dataset contains:
 
-- 1 national series
-- 49 state-level series
-- 300 regional series
+- 1 national monthly series
+- 49 state-level monthly series
+- 300 regional monthly series
 
-National sales volume peaked in 2021, with approximately 4.99 million sales, followed by a clear contraction in 2022 and 2023. Values for 2026 should be interpreted cautiously because the year is incomplete.
+State and national series were reconstructed by summing the included regional series. The national series therefore represents the modeled metropolitan markets, not Zillow’s original national aggregate. This keeps the hierarchy coherent for reconciliation.
+
+## Why This Project Matters
+
+Real estate forecasts are often used at several levels at once: national, state, and regional. A model can perform well at the aggregate level while missing important regional behavior. This project focuses on that problem by combining hierarchical forecasting, spatial analysis, reconciliation, and model comparison under the same validation design.
+
+The workflow covers:
+
+- monthly panel data cleaning,
+- hierarchical aggregation,
+- spatial analysis with latitude, longitude, Geohash, and H3,
+- statistical, ML, and deep learning benchmarks,
+- walk-forward cross-validation,
+- cross-sectional forecast reconciliation,
+- error and bias analysis.
+
+## Data and Exploratory Analysis
+
+The dataset was built from public Zillow monthly metropolitan sales-count series. All series were aligned to a common monthly calendar.
+
+National sales volume peaked in 2021 at approximately 4.99 million sales, followed by a clear contraction in 2022 and 2023. This makes the forecasting problem more than a simple seasonal task: the models must handle both monthly seasonality and a market shift after 2021.
+
+Values for 2026 should be interpreted carefully because the year is incomplete.
 
 ![National home sales by year](Zillow%20Sales%20House/Figures/EDA_zillow.png)
 
-## Exploratory Data Analysis
+At the state level, Florida, California, Texas, New York, and Pennsylvania show the highest total sales volume.
 
-At the state level, Florida, California, Texas, New York, and Pennsylvania show the highest total sales volume. At the regional level, the largest markets are New York, NY; Chicago, IL; Miami, FL; Los Angeles, CA; and Atlanta, GA.
+At the regional level, the largest markets are:
 
-The largest region accounts for about 4.6% of total regional sales, the top 10 regions account for about 28.1%, and the top 20 account for about 42.9%.
+- New York, NY
+- Chicago, IL
+- Miami, FL
+- Los Angeles, CA
+- Atlanta, GA
+
+The largest region accounts for about 4.6% of total regional sales. The top 10 regions account for about 28.1%, and the top 20 regions account for about 42.9%.
+
+This concentration matters because national-level accuracy can hide regional errors.
 
 ![Hierarchical sales series](Zillow%20Sales%20House/Figures/hierarchhy.png)
 
 ## Spatial Analysis
 
-Latitude and longitude were used to explore total sales and average monthly sales by region. Geohash and H3 spatial indexing were applied to summarize geographic market concentration.
+Latitude and longitude were used to analyze geographic concentration in sales volume. Geohash and H3 indexing were used to summarize regional density and market concentration.
 
-The results show clear spatial concentration patterns, especially around New York and Florida.
+The spatial analysis shows that a limited number of large metropolitan areas, especially around New York and Florida, contribute a substantial share of total sales activity.
 
 Interactive H3 maps:
 
@@ -50,66 +74,80 @@ Interactive H3 maps:
 
 ## Forecasting Design
 
-Forecasting was evaluated with walk-forward cross-validation:
+Forecasts were evaluated with walk-forward cross-validation.
 
-- Forecast horizon: 12 months
-- Number of cutoffs: 5
-- Step size: 12 months
+| Setting | Value |
+|---|---:|
+| Frequency | Monthly |
+| Horizon | 12 months |
+| Cutoffs | 5 |
+| Step size | 12 months |
 
-For each model and cutoff, in-sample forecasts were generated to compute residuals for reconciliation. Out-of-sample forecasts were used for final evaluation.
+Out-of-sample forecasts were used for final evaluation. In-sample forecasts were used only to estimate residuals for reconciliation.
 
-## Benchmark Models
+## Models
 
-### Statistical Benchmarks
+### Statistical Models
 
-Implemented in statistical_benchmarks_crossvalidation. The statistical models were estimated using StatsForecast:
-
-Models:
+Implemented in `Statistical Benchmarks Crossvalidation`.
 
 - SeasonalNaive
 - Holt-Winters
 - TBATS
+- MFLES
 - AutoARIMA
 - AutoARIMAX with monthly calendar regressors
 
-### Machine Learning Benchmarks
+### Machine Learning Models
 
-Implemented in `ML_benchmarks_crossvalidation`.
-
-Global models:
+Implemented in `ML Benchmarks Crossvalidation`.
 
 - LightGBM
 - CatBoost
 - XGBoost
 
-Partial autocorrelation diagnostics were used to inspect lag structure, with special attention to 12-month seasonal lags. The models used lag features, lag transformations, and calendar features such as month, quarter, and year.
+The ML models used lag features, rolling transformations, and calendar features such as month, quarter, and year.
 
-### Deep Learning Benchmarks
+### Deep Learning Models
 
-Implemented in `DL_benchmarks_crossvalidation`.
-
-Models:
+Implemented in `DL Benchmarks Crossvalidation`.
 
 - GRU
 - NHITS
 - NBEATSx
 - KAN
 
-The models incorporated historical calendar variables and were configured with 200 training epochs, a learning rate of 0.0001, and MAE loss. Additional model-specific details are included in the notebook.
+The deep learning models used historical calendar variables and MAE loss. Model-specific settings are documented in the notebooks.
 
 ## Hierarchical Reconciliation
 
-Implemented in `hierarchical_reconciliation`.
+Implemented in `Hierarchical Reconciliation`.
 
-Cross-sectional reconciliation was applied in R using the `FoReco` package over the same three-level hierarchy. In-sample residuals were used to estimate reconciliation weights, and out-of-sample forecasts were reconciled.
+Cross-sectional reconciliation was applied in R using the `FoReco` package. The reconciliation methods included:
 
-The reconciliation methods included bottom-up, top-down, middle-out, least-squares, weighted least-squares, shrinkage covariance-based reconciliation, and level-conditional coherent reconciliation.
+- Bottom-Up
+- Top-Down
+- Middle-Out
+- Least Squares
+- Weighted Least Squares
+- Shrinkage covariance-based reconciliation
+- Level-Conditional Coherent reconciliation
+
+Reconciliation was evaluated as part of the modeling pipeline, not assumed to improve every model.
 
 ## Error Analysis
 
-Implemented in `error_analysis`.
+Implemented in `Error Analysis`.
 
-NRMSE was selected as the main metric because it allows comparison across hierarchy levels with different sales magnitudes. The analysis includes global ranking, reconciliation improvements, comparison against SeasonalNaive, bias factor, and error distributions.
+NRMSE was used as the main metric because it supports comparison across hierarchy levels with different sales volumes.
+
+The analysis includes:
+
+- global model ranking,
+- improvement from reconciliation,
+- comparison against SeasonalNaive,
+- bias factor,
+- error distributions across models and methods.
 
 ![Global error comparison](Zillow%20Sales%20House/Figures/global_error.png)
 
@@ -120,7 +158,7 @@ NRMSE was selected as the main metric because it allows comparison across hierar
 Lower NRMSE is better.
 
 | Model | Reconciliation Method | NRMSE |
-|---|---:|---:|
+|---|---|---:|
 | HoltWinters | LCC-SHR | 0.1439 |
 | AutoARIMAX | BU | 0.1451 |
 | TBATS | LCC-SHR | 0.1469 |
@@ -139,9 +177,45 @@ Lower NRMSE is better.
 
 ## Main Findings
 
-Holt-Winters with LCC-SHR achieved the best global NRMSE, followed closely by AutoARIMAX with Bottom-Up reconciliation and TBATS with LCC-SHR. Several reconciled models improved over the SeasonalNaive benchmark, showing the value of hierarchical reconciliation for this dataset.
+Statistical models performed best on this monthly dataset. Holt-Winters, AutoARIMAX, and TBATS achieved the lowest global errors after reconciliation, suggesting that trend and seasonality explain much of the signal in monthly housing sales.
 
-However, reconciliation did not improve all models equally. Some methods were more effective for statistical models, while several machine learning and deep learning models showed model-dependent gains. This highlights the importance of evaluating both the base model and the reconciliation method jointly.
+NHITS and NBEATSx were the most competitive deep learning models, but they did not clearly outperform the best statistical benchmarks in this setup.
+
+Reconciliation improved several models, but not uniformly. The best results depended on the combination of base model and reconciliation method, so reconciliation should be selected empirically rather than applied by default.
+
+The post-2021 market contraction affected the forecasting task. Models had to capture both recurring monthly patterns and a structural change in sales volume.
+
+Spatial concentration is also relevant. A limited number of large metropolitan areas drives a large share of total volume, which makes level-wise error analysis necessary.
+
+## Future Work
+
+The current ML and deep learning benchmarks rely mainly on lag, rolling, and calendar-derived features. Future versions should test whether richer exogenous and spatial information improves performance.
+
+Planned extensions include:
+
+- holiday and working-day features,
+- cyclical calendar transformations,
+- month-end and seasonal indicators,
+- spatial embeddings from latitude and longitude,
+- graph-based embeddings using regional proximity,
+- distance-based features between markets,
+- more systematic hyperparameter tuning for ML and deep learning models.
+
+These additions would help determine whether ML and deep learning models underperformed because of the model family itself or because the current feature set is still limited.
+
+## Skills Demonstrated
+
+- Time series forecasting
+- Hierarchical forecasting
+- Forecast reconciliation
+- Walk-forward cross-validation
+- Spatial feature engineering
+- H3 and Geohash indexing
+- Statistical modeling
+- Machine learning benchmarks
+- Deep learning benchmarks
+- Error and bias analysis
+- Python, R, StatsForecast, MLForecast, NeuralForecast, FoReco
 
 ## My Publications and Research Work
 
