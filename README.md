@@ -36,7 +36,7 @@ The workflow covers:
 
 ## Data and Exploratory Analysis
 
-The dataset was built from public Zillow monthly metropolitan sales-count series. All series were aligned to a common monthly calendar. Implemented in `data_preprocessing_EDA.ipynb`.
+The dataset was built from public Zillow monthly metropolitan sales-count series. All series were aligned to a common monthly calendar. Implemented in `data_preprocessing_EDA`.
 
 National sales volume peaked in 2021 at approximately 4.99 million sales, followed by a clear contraction in 2022 and 2023. This makes the forecasting problem more than a simple seasonal task: the models must handle both monthly seasonality and a market shift after 2021.
 
@@ -62,7 +62,7 @@ This concentration matters because national-level accuracy can hide regional err
 
 ## Spatial Analysis
 
-Latitude and longitude were used to analyze geographic concentration in sales volume. Geohash and H3 indexing were used to summarize regional density and market concentration.
+Latitude and longitude were used to analyze geographic concentration in sales volume. Geohash and H3 indexing were used to summarize regional density and market concentration. Implemented in `spatial_analysis`.
 
 The spatial analysis shows that a limited number of large metropolitan areas, especially around New York and Florida, contribute a substantial share of total sales activity.
 
@@ -89,7 +89,7 @@ Out-of-sample forecasts were used for final evaluation. In-sample forecasts were
 
 ### Statistical Models
 
-Implemented in `Statistical Benchmarks Crossvalidation`.
+Implemented in `statistical_benchmarks_crossvalidation`.
 
 - SeasonalNaive
 - Holt-Winters
@@ -100,7 +100,7 @@ Implemented in `Statistical Benchmarks Crossvalidation`.
 
 ### Machine Learning Models
 
-Implemented in `ML Benchmarks Crossvalidation`.
+Implemented in `ML_benchmarks_crossvalidation`.
 
 - LightGBM
 - CatBoost
@@ -110,7 +110,7 @@ The ML models used lag features, rolling transformations, and calendar features 
 
 ### Deep Learning Models
 
-Implemented in `DL Benchmarks Crossvalidation`.
+Implemented in `DL_benchmarks_crossvalidation`.
 
 - GRU
 - NHITS
@@ -121,7 +121,7 @@ The deep learning models used historical calendar variables and MAE loss. Model-
 
 ## Hierarchical Reconciliation
 
-Implemented in `Hierarchical Reconciliation`.
+Implemented in `hierarchical_reconciliation`.
 
 Cross-sectional reconciliation was applied in R using the `FoReco` package. The reconciliation methods included:
 
@@ -137,9 +137,7 @@ Reconciliation was evaluated as part of the modeling pipeline, not assumed to im
 
 ## Error Analysis
 
-Implemented in `Error Analysis`.
-
-NRMSE was used as the main metric because it supports comparison across hierarchy levels with different sales volumes.
+NRMSE was used as the main metric because it supports comparison across hierarchy levels with different sales volumes. Implemented in `error_analysis`.
 
 The analysis includes:
 
@@ -229,23 +227,21 @@ I am an author or co-author of the following forecasting and time-series researc
 ```text
 Forecasting/
 ├── Zillow Sales House/
-│   ├── Data Preprocessing EDA/
+│   ├── Preprocessing/
+│   │   └── data_preprocessing_EDA.ipynb
 │   ├── Spatial Analysis/
+│   │   ├── spatial_analysis.ipynb
 │   │   └── Outputs/
 │   │       ├── zillow_h3_combined_map.html
 │   │       ├── zillow_h3_market_density.html
 │   │       └── zillow_h3_sales_concentration.html
-│   ├── Statistical Benchmarks Crossvalidation/
-│   ├── ML Benchmarks Crossvalidation/
-│   ├── DL Benchmarks Crossvalidation/
-│   ├── Hierarchical Reconciliation/
-│   ├── Error Analysis/
-│   └── Figures/
-│       ├── EDA_zillow.png
-│       ├── hierarchhy.png
-│       ├── global_error.png
-│       ├── Improvement reconciliation.png
-│       └── best_models_reconcilied.png
+│   ├── Benchmarks/
+│   │   ├── statistical_benchmarks_crossvalidation.ipynb
+│   │   ├── ML_benchmarks_crossvalidation.ipynb
+│   │   └── DL_benchmarks_crossvalidation.ipynb
+│   ├── Hierarchical reconciliation/
+│   │   └── hierarchical_reconciliation.ipynb
+│   └── error_analysis.ipynb
 ├── README.md
 └── LICENSE
 ```
