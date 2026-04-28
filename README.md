@@ -36,7 +36,7 @@ The workflow covers:
 
 ## Data and Exploratory Analysis
 
-The dataset was built from public Zillow monthly metropolitan sales-count series. All series were aligned to a common monthly calendar.
+The dataset was built from public Zillow monthly metropolitan sales-count series. All series were aligned to a common monthly calendar. Implemented in `data_preprocessing_EDA.ipynb`.
 
 National sales volume peaked in 2021 at approximately 4.99 million sales, followed by a clear contraction in 2022 and 2023. This makes the forecasting problem more than a simple seasonal task: the models must handle both monthly seasonality and a market shift after 2021.
 
